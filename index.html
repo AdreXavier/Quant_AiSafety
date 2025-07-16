@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Gráficos: Finanças Quantitativas vs. AI Safety</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 p-4 sm:p-8">
+    <div class="max-w-7xl mx-auto">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-slate-800">Painel de Análise de Carreira</h1>
+            <p class="text-lg text-slate-600 mt-2">Visualizações de Dados: Finanças Quantitativas vs. AI Safety</p>
+        </header>
+
+        <!-- Grid de Gráficos -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <!-- Gráfico 1: O Impacto do Bônus (Quant) -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg">
+                <h2 class="text-xl font-bold text-slate-700 text-center">Gráfico 1: O Impacto do Bônus na Remuneração Quant</h2>
+                <p class="text-sm text-slate-500 text-center mb-4">Comparativo de estrutura salarial (Sênior Global, USD)</p>
+                <div class="chart-container">
+                    <canvas id="bonusChart"></canvas>
+                </div>
+                <p class="text-center text-xs text-slate-400 mt-3">Fontes: Wall Street Oasis, Selby Jennings.</p>
+            </div>
+
+            <!-- Gráfico 2: Remuneração nos Laboratórios de Elite de IA -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg">
+                <h2 class="text-xl font-bold text-slate-700 text-center">Gráfico 2: Remuneração nos Laboratórios de Elite de IA</h2>
+                 <p class="text-sm text-slate-500 text-center mb-4">Compensação Total Anual Mediana (Global, USD)</p>
+                <div class="chart-container">
+                    <canvas id="aiLabsChart"></canvas>
+                </div>
+                <p class="text-center text-xs text-slate-400 mt-3">Fontes: Levels.fyi, The Information, Anthropic Careers.</p>
+            </div>
+
+            <!-- Gráfico 3: Confronto em Hubs Brasileiros (Sênior) -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg">
+                <h2 class="text-xl font-bold text-slate-700 text-center">Gráfico 3: Confronto em Hubs Brasileiros (Sênior)</h2>
+                <p class="text-sm text-slate-500 text-center mb-4">Salário Base Mensal Estimado (BRL)</p>
+                <div class="chart-container">
+                    <canvas id="brazilHubsChart"></canvas>
+                </div>
+                <p class="text-center text-xs text-slate-400 mt-3">Fontes: Fórum Condado Faria Lima, Glassdoor, Guia da Carreira, GeekHunter, Exame, Robert Half.</p>
+            </div>
+
+            <!-- Gráfico 4: Progressão de Carreira Quant no Brasil -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg">
+                <h2 class="text-xl font-bold text-slate-700 text-center">Gráfico 4: Progressão de Carreira Quant no Brasil</h2>
+                <p class="text-sm text-slate-500 text-center mb-4">Salário Base Mensal (BRL) - São Paulo vs. Rio de Janeiro</p>
+                <div class="chart-container">
+                    <canvas id="quantBrazilProgressionChart"></canvas>
+                </div>
+                <p class="text-center text-xs text-slate-400 mt-3">Fontes: Fórum Condado Faria Lima, Glassdoor, Guia da Carreira.</p>
+            </div>
+            
+            <!-- Gráfico 5: Comparativo Salarial em Hubs Globais (Quant) -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg">
+                <h2 class="text-xl font-bold text-slate-700 text-center">Gráfico 5: Salário em Hubs Globais (Quant)</h2>
+                <p class="text-sm text-slate-500 text-center mb-4">Salário Base Anual Mediano (USD)</p>
+                <div class="chart-container">
+                    <canvas id="globalHubsChart"></canvas>
+                </div>
+                <p class="text-center text-xs text-slate-400 mt-3">Fontes: Built In (NYC, Chicago), Glassdoor, Selby Jennings.</p>
+            </div>
+
+            <!-- Gráfico 6: Poder de Compra Relativo -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg">
+                <h2 class="text-xl font-bold text-slate-700 text-center">Gráfico 6: Poder de Compra Relativo</h2>
+                <p class="text-sm text-slate-500 text-center mb-4">Salário Nominal vs. Salário Ajustado ao Custo de Vida</p>
+                <div class="chart-container">
+                    <canvas id="purchasingPowerChart"></canvas>
+                </div>
+                <p class="text-center text-xs text-slate-400 mt-3">Fontes: Payscale, Numbeo, CustoDeVida.com.br e dados salariais.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Configurações globais para os gráficos
+        Chart.defaults.font.family = 'Inter', 'sans-serif';
+        Chart.defaults.plugins.tooltip.backgroundColor = '#1e293b';
+        Chart.defaults.plugins.tooltip.titleFont.size = 14;
+        Chart.defaults.plugins.tooltip.bodyFont.size = 12;
+        Chart.defaults.plugins.tooltip.padding = 10;
+        Chart.defaults.plugins.tooltip.cornerRadius = 6;
+
+        // Função para formatar como moeda
+        const formatCurrency = (value, currency = 'USD') => new Intl.NumberFormat('pt-BR', { style: 'currency', currency, minimumFractionDigits: 0 }).format(value);
+
+        // --- Gráfico 1: O Impacto do Bônus (Quant) ---
+        const bonusCtx = document.getElementById('bonusChart').getContext('2d');
+        new Chart(bonusCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Banco de Investimento', 'Hedge Fund / Prop Trading'],
+                datasets: [{
+                    label: 'Salário Base',
+                    data: [250000, 250000],
+                    backgroundColor: 'rgba(59, 130, 246, 0.7)', // blue-500
+                }, {
+                    label: 'Bônus',
+                    data: [250000, 750000],
+                    backgroundColor: 'rgba(14, 165, 233, 0.7)', // sky-500
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true, grid: { display: false } },
+                    y: { stacked: true, ticks: { callback: (value) => '$' + (value / 1000) + 'k' } }
+                },
+                plugins: { tooltip: { callbacks: { label: (context) => `${context.dataset.label}: ${formatCurrency(context.raw)}` } } }
+            }
+        });
+
+        // --- Gráfico 2: Remuneração nos Laboratórios de Elite de IA ---
+        const aiLabsCtx = document.getElementById('aiLabsChart').getContext('2d');
+        new Chart(aiLabsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Google DeepMind (L4)', 'Anthropic (Estimativa)', 'OpenAI'],
+                datasets: [{
+                    label: 'Remuneração Total Anual Mediana',
+                    data: [330000, 600000, 1560000],
+                    backgroundColor: ['rgba(239, 68, 68, 0.7)', 'rgba(217, 70, 239, 0.7)', 'rgba(16, 185, 129, 0.7)'],
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+                scales: { x: { ticks: { callback: (value) => '$' + (value / 1000) + 'k' } }, y: { grid: { display: false } } },
+                plugins: { legend: { display: false }, tooltip: { callbacks: { label: (context) => `Total: ${formatCurrency(context.raw)}` } } }
+            }
+        });
+
+        // --- Gráfico 3: Confronto em Hubs Brasileiros (Sênior) ---
+        const brazilHubsCtx = document.getElementById('brazilHubsChart').getContext('2d');
+        new Chart(brazilHubsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Quant Sênior', 'AI Safety Sênior (Proxy)'],
+                datasets: [{
+                    label: 'São Paulo',
+                    data: [25000, 18000],
+                    backgroundColor: 'rgba(37, 99, 235, 0.7)', // blue-600
+                }, {
+                    label: 'Rio de Janeiro',
+                    data: [22000, 16500],
+                    backgroundColor: 'rgba(29, 78, 216, 0.7)', // blue-700
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: { y: { ticks: { callback: (value) => formatCurrency(value, 'BRL') } }, x: { grid: { display: false } } },
+                plugins: { tooltip: { callbacks: { label: (context) => `${context.dataset.label}: ${formatCurrency(context.raw, 'BRL')}` } } }
+            }
+        });
+
+        // --- Gráfico 4: Progressão de Carreira Quant no Brasil ---
+        const quantBrazilProgressionCtx = document.getElementById('quantBrazilProgressionChart').getContext('2d');
+        new Chart(quantBrazilProgressionCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Júnior', 'Pleno', 'Sênior'],
+                datasets: [{
+                    label: 'São Paulo',
+                    data: [10500, 16000, 25000],
+                    backgroundColor: 'rgba(14, 165, 233, 0.8)', // sky-500
+                }, {
+                    label: 'Rio de Janeiro',
+                    data: [9500, 14500, 22000],
+                    backgroundColor: 'rgba(14, 165, 233, 0.5)', // sky-500
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: { y: { ticks: { callback: (value) => formatCurrency(value, 'BRL') } }, x: { grid: { display: false } } },
+                plugins: { tooltip: { callbacks: { label: (context) => `${context.dataset.label}: ${formatCurrency(context.raw, 'BRL')}` } } }
+            }
+        });
+        
+        // --- Gráfico 5: Comparativo Salarial em Hubs Globais (Quant) ---
+        const globalHubsCtx = document.getElementById('globalHubsChart').getContext('2d');
+        new Chart(globalHubsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Chicago', 'Londres', 'Nova York'],
+                datasets: [{
+                    label: 'Salário Base Anual Mediano',
+                    data: [157000, 161000, 175000],
+                    backgroundColor: ['rgba(132, 204, 22, 0.7)', 'rgba(59, 130, 246, 0.7)', 'rgba(34, 197, 94, 0.7)'],
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+                scales: { x: { ticks: { callback: (value) => '$' + (value / 1000) + 'k' } }, y: { grid: { display: false } } },
+                plugins: { legend: { display: false }, tooltip: { callbacks: { label: (context) => `Mediana: ${formatCurrency(context.raw)}` } } }
+            }
+        });
+        
+        // --- Gráfico 6: Poder de Compra Relativo ---
+        const purchasingPowerCtx = document.getElementById('purchasingPowerChart').getContext('2d');
+        new Chart(purchasingPowerCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Chicago', 'Londres', 'São Francisco', 'Nova York'],
+                datasets: [{
+                    label: 'Salário Nominal',
+                    data: [157000, 161000, 215000, 175000],
+                    backgroundColor: 'rgba(168, 85, 247, 0.5)', // purple-500
+                }, {
+                    label: 'Salário Ajustado (Poder de Compra)',
+                    data: [230882, 214667, 226315, 175000],
+                    backgroundColor: 'rgba(168, 85, 247, 0.9)', // purple-500
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: { y: { ticks: { callback: (value) => '$' + (value / 1000) + 'k' } }, x: { grid: { display: false } } },
+                plugins: { tooltip: { callbacks: { label: (context) => `${context.dataset.label}: ${formatCurrency(context.raw)}` } } }
+            }
+        });
+
+    </script>
+</body>
+</html>
