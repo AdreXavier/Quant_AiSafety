@@ -11,11 +11,6 @@
         body {
             font-family: 'Inter', sans-serif;
         }
-        .chart-container {
-            position: relative;
-            height: 400px;
-            width: 100%;
-        }
     </style>
 </head>
 <body class="bg-slate-100 p-4 sm:p-8">
@@ -29,63 +24,87 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
             <!-- Gráfico 1: O Impacto do Bônus (Quant) -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg">
-                <h2 class="text-xl font-bold text-slate-700 text-center">Gráfico 1: O Impacto do Bônus na Remuneração Quant</h2>
-                <p class="text-sm text-slate-500 text-center mb-4">Comparativo de estrutura salarial (Sênior Global, USD)</p>
-                <div class="chart-container">
+            <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col h-full">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-700 text-center">Gráfico 1: O Impacto do Bônus na Remuneração Quant</h2>
+                    <p class="text-sm text-slate-500 text-center mb-4">Comparativo de estrutura salarial (Sênior Global, USD)</p>
+                </div>
+                <div class="relative flex-grow w-full h-80 sm:h-96">
                     <canvas id="bonusChart"></canvas>
                 </div>
-                <p class="text-center text-xs text-slate-400 mt-3">Fontes: Wall Street Oasis, Selby Jennings.</p>
+                <div class="mt-3">
+                    <p class="text-center text-xs text-slate-400">Fontes: Wall Street Oasis, Selby Jennings.</p>
+                </div>
             </div>
 
             <!-- Gráfico 2: Remuneração nos Laboratórios de Elite de IA -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg">
-                <h2 class="text-xl font-bold text-slate-700 text-center">Gráfico 2: Remuneração nos Laboratórios de Elite de IA</h2>
-                 <p class="text-sm text-slate-500 text-center mb-4">Compensação Total Anual Mediana (Global, USD)</p>
-                <div class="chart-container">
+            <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col h-full">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-700 text-center">Gráfico 2: Remuneração nos Laboratórios de Elite de IA</h2>
+                     <p class="text-sm text-slate-500 text-center mb-4">Compensação Total Anual Mediana (Global, USD)</p>
+                </div>
+                <div class="relative flex-grow w-full h-80 sm:h-96">
                     <canvas id="aiLabsChart"></canvas>
                 </div>
-                <p class="text-center text-xs text-slate-400 mt-3">Fontes: Levels.fyi, The Information, Anthropic Careers.</p>
+                <div class="mt-3">
+                    <p class="text-center text-xs text-slate-400">Fontes: Levels.fyi, The Information, Anthropic Careers.</p>
+                </div>
             </div>
 
             <!-- Gráfico 3: Confronto em Hubs Brasileiros (Sênior) -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg">
-                <h2 class="text-xl font-bold text-slate-700 text-center">Gráfico 3: Confronto em Hubs Brasileiros (Sênior)</h2>
-                <p class="text-sm text-slate-500 text-center mb-4">Salário Base Mensal Estimado (BRL)</p>
-                <div class="chart-container">
+            <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col h-full">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-700 text-center">Gráfico 3: Confronto em Hubs Brasileiros (Sênior)</h2>
+                    <p class="text-sm text-slate-500 text-center mb-4">Salário Base Mensal Estimado (BRL)</p>
+                </div>
+                <div class="relative flex-grow w-full h-80 sm:h-96">
                     <canvas id="brazilHubsChart"></canvas>
                 </div>
-                <p class="text-center text-xs text-slate-400 mt-3">Fontes: Fórum Condado Faria Lima, Glassdoor, Guia da Carreira, GeekHunter, Exame, Robert Half.</p>
+                <div class="mt-3">
+                    <p class="text-center text-xs text-slate-400">Fontes: Fórum Condado Faria Lima, Glassdoor, Guia da Carreira, GeekHunter, Exame, Robert Half.</p>
+                </div>
             </div>
 
             <!-- Gráfico 4: Progressão de Carreira Quant no Brasil -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg">
-                <h2 class="text-xl font-bold text-slate-700 text-center">Gráfico 4: Progressão de Carreira Quant no Brasil</h2>
-                <p class="text-sm text-slate-500 text-center mb-4">Salário Base Mensal (BRL) - São Paulo vs. Rio de Janeiro</p>
-                <div class="chart-container">
+            <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col h-full">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-700 text-center">Gráfico 4: Progressão de Carreira Quant no Brasil</h2>
+                    <p class="text-sm text-slate-500 text-center mb-4">Salário Base Mensal (BRL) - São Paulo vs. Rio de Janeiro</p>
+                </div>
+                <div class="relative flex-grow w-full h-80 sm:h-96">
                     <canvas id="quantBrazilProgressionChart"></canvas>
                 </div>
-                <p class="text-center text-xs text-slate-400 mt-3">Fontes: Fórum Condado Faria Lima, Glassdoor, Guia da Carreira.</p>
+                <div class="mt-3">
+                    <p class="text-center text-xs text-slate-400">Fontes: Fórum Condado Faria Lima, Glassdoor, Guia da Carreira.</p>
+                </div>
             </div>
             
             <!-- Gráfico 5: Comparativo Salarial em Hubs Globais (Quant) -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg">
-                <h2 class="text-xl font-bold text-slate-700 text-center">Gráfico 5: Salário em Hubs Globais (Quant)</h2>
-                <p class="text-sm text-slate-500 text-center mb-4">Salário Base Anual Mediano (USD)</p>
-                <div class="chart-container">
+            <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col h-full">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-700 text-center">Gráfico 5: Salário em Hubs Globais (Quant)</h2>
+                    <p class="text-sm text-slate-500 text-center mb-4">Salário Base Anual Mediano (USD)</p>
+                </div>
+                <div class="relative flex-grow w-full h-80 sm:h-96">
                     <canvas id="globalHubsChart"></canvas>
                 </div>
-                <p class="text-center text-xs text-slate-400 mt-3">Fontes: Built In (NYC, Chicago), Glassdoor, Selby Jennings.</p>
+                <div class="mt-3">
+                    <p class="text-center text-xs text-slate-400">Fontes: Built In (NYC, Chicago), Glassdoor, Selby Jennings.</p>
+                </div>
             </div>
 
             <!-- Gráfico 6: Poder de Compra Relativo -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg">
-                <h2 class="text-xl font-bold text-slate-700 text-center">Gráfico 6: Poder de Compra Relativo</h2>
-                <p class="text-sm text-slate-500 text-center mb-4">Salário Nominal vs. Salário Ajustado ao Custo de Vida</p>
-                <div class="chart-container">
+            <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col h-full">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-700 text-center">Gráfico 6: Poder de Compra Relativo</h2>
+                    <p class="text-sm text-slate-500 text-center mb-4">Salário Nominal vs. Salário Ajustado ao Custo de Vida</p>
+                </div>
+                <div class="relative flex-grow w-full h-80 sm:h-96">
                     <canvas id="purchasingPowerChart"></canvas>
                 </div>
-                <p class="text-center text-xs text-slate-400 mt-3">Fontes: Payscale, Numbeo, CustoDeVida.com.br e dados salariais.</p>
+                <div class="mt-3">
+                    <p class="text-center text-xs text-slate-400">Fontes: Payscale, Numbeo, CustoDeVida.com.br e dados salariais.</p>
+                </div>
             </div>
 
         </div>
@@ -99,6 +118,7 @@
         Chart.defaults.plugins.tooltip.bodyFont.size = 12;
         Chart.defaults.plugins.tooltip.padding = 10;
         Chart.defaults.plugins.tooltip.cornerRadius = 6;
+        Chart.defaults.maintainAspectRatio = false;
 
         // Função para formatar como moeda
         const formatCurrency = (value, currency = 'USD') => new Intl.NumberFormat('pt-BR', { style: 'currency', currency, minimumFractionDigits: 0 }).format(value);
@@ -120,7 +140,7 @@
                 }]
             },
             options: {
-                responsive: true, maintainAspectRatio: false,
+                layout: { padding: { left: 40, right: 20, top: 10, bottom: 10 } },
                 scales: {
                     x: { stacked: true, grid: { display: false } },
                     y: { stacked: true, ticks: { callback: (value) => '$' + (value / 1000) + 'k' } }
@@ -142,7 +162,8 @@
                 }]
             },
             options: {
-                responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+                indexAxis: 'y',
+                layout: { padding: { left: 120, right: 20, top: 10, bottom: 10 } }, // FIX DEFINITIVO
                 scales: { x: { ticks: { callback: (value) => '$' + (value / 1000) + 'k' } }, y: { grid: { display: false } } },
                 plugins: { legend: { display: false }, tooltip: { callbacks: { label: (context) => `Total: ${formatCurrency(context.raw)}` } } }
             }
@@ -165,7 +186,7 @@
                 }]
             },
             options: {
-                responsive: true, maintainAspectRatio: false,
+                layout: { padding: { left: 60, right: 20, top: 10, bottom: 10 } }, // FIX DEFINITIVO
                 scales: { y: { ticks: { callback: (value) => formatCurrency(value, 'BRL') } }, x: { grid: { display: false } } },
                 plugins: { tooltip: { callbacks: { label: (context) => `${context.dataset.label}: ${formatCurrency(context.raw, 'BRL')}` } } }
             }
@@ -188,7 +209,7 @@
                 }]
             },
             options: {
-                responsive: true, maintainAspectRatio: false,
+                layout: { padding: { left: 60, right: 20, top: 10, bottom: 10 } }, // FIX DEFINITIVO
                 scales: { y: { ticks: { callback: (value) => formatCurrency(value, 'BRL') } }, x: { grid: { display: false } } },
                 plugins: { tooltip: { callbacks: { label: (context) => `${context.dataset.label}: ${formatCurrency(context.raw, 'BRL')}` } } }
             }
@@ -207,7 +228,8 @@
                 }]
             },
             options: {
-                responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+                indexAxis: 'y',
+                layout: { padding: { left: 80, right: 20, top: 10, bottom: 10 } }, // FIX DEFINITIVO
                 scales: { x: { ticks: { callback: (value) => '$' + (value / 1000) + 'k' } }, y: { grid: { display: false } } },
                 plugins: { legend: { display: false }, tooltip: { callbacks: { label: (context) => `Mediana: ${formatCurrency(context.raw)}` } } }
             }
@@ -230,7 +252,7 @@
                 }]
             },
             options: {
-                responsive: true, maintainAspectRatio: false,
+                layout: { padding: { left: 50, right: 20, top: 10, bottom: 10 } }, // FIX DEFINITIVO
                 scales: { y: { ticks: { callback: (value) => '$' + (value / 1000) + 'k' } }, x: { grid: { display: false } } },
                 plugins: { tooltip: { callbacks: { label: (context) => `${context.dataset.label}: ${formatCurrency(context.raw)}` } } }
             }
