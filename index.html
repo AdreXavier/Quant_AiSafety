@@ -51,11 +51,11 @@
                 </div>
             </div>
 
-            <!-- Gráfico 3: Confronto em Hubs Brasileiros (Sênior) -->
+            <!-- Gráfico 3: Remuneração Total no Brasil (Sênior) -->
             <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col h-full">
                 <div>
-                    <h2 class="text-xl font-bold text-slate-700 text-center">Gráfico 3: Confronto em Hubs Brasileiros (Sênior)</h2>
-                    <p class="text-sm text-slate-500 text-center mb-4">Salário Base Mensal Estimado (BRL)</p>
+                    <h2 class="text-xl font-bold text-slate-700 text-center">Gráfico 3: Remuneração Total Anual no Brasil (Sênior)</h2>
+                    <p class="text-sm text-slate-500 text-center mb-4">Salário Base vs. Bônus Estimado (BRL)</p>
                 </div>
                 <div class="relative flex-grow w-full h-80 sm:h-96">
                     <canvas id="brazilHubsChart"></canvas>
@@ -132,11 +132,11 @@
                 datasets: [{
                     label: 'Salário Base',
                     data: [250000, 250000],
-                    backgroundColor: 'rgba(59, 130, 246, 0.7)', // blue-500
+                    backgroundColor: 'rgba(59, 130, 246, 0.7)',
                 }, {
                     label: 'Bônus',
                     data: [250000, 750000],
-                    backgroundColor: 'rgba(14, 165, 233, 0.7)', // sky-500
+                    backgroundColor: 'rgba(14, 165, 233, 0.7)',
                 }]
             },
             options: {
@@ -163,31 +163,34 @@
             },
             options: {
                 indexAxis: 'y',
-                layout: { padding: { left: 120, right: 20, top: 10, bottom: 10 } }, // FIX DEFINITIVO
+                layout: { padding: { left: 150, right: 20, top: 10, bottom: 10 } }, // FIX: Padding agressivo
                 scales: { x: { ticks: { callback: (value) => '$' + (value / 1000) + 'k' } }, y: { grid: { display: false } } },
                 plugins: { legend: { display: false }, tooltip: { callbacks: { label: (context) => `Total: ${formatCurrency(context.raw)}` } } }
             }
         });
 
-        // --- Gráfico 3: Confronto em Hubs Brasileiros (Sênior) ---
+        // --- Gráfico 3: Remuneração Total no Brasil (Sênior) ---
         const brazilHubsCtx = document.getElementById('brazilHubsChart').getContext('2d');
         new Chart(brazilHubsCtx, {
             type: 'bar',
             data: {
-                labels: ['Quant Sênior', 'AI Safety Sênior (Proxy)'],
+                labels: ['Quant (SP)', 'Quant (RJ)', 'AI Safety (SP)', 'AI Safety (RJ)'],
                 datasets: [{
-                    label: 'São Paulo',
-                    data: [25000, 18000],
-                    backgroundColor: 'rgba(37, 99, 235, 0.7)', // blue-600
+                    label: 'Salário Base Anual',
+                    data: [300000, 264000, 216000, 198000],
+                    backgroundColor: 'rgba(37, 99, 235, 0.7)',
                 }, {
-                    label: 'Rio de Janeiro',
-                    data: [22000, 16500],
-                    backgroundColor: 'rgba(29, 78, 216, 0.7)', // blue-700
+                    label: 'Bônus Anual Estimado',
+                    data: [250000, 220000, 54000, 49500],
+                    backgroundColor: 'rgba(96, 165, 250, 0.7)',
                 }]
             },
             options: {
-                layout: { padding: { left: 60, right: 20, top: 10, bottom: 10 } }, // FIX DEFINITIVO
-                scales: { y: { ticks: { callback: (value) => formatCurrency(value, 'BRL') } }, x: { grid: { display: false } } },
+                layout: { padding: { left: 80, right: 20, top: 10, bottom: 10 } }, // FIX: Padding agressivo
+                scales: { 
+                    x: { stacked: true, grid: { display: false } },
+                    y: { stacked: true, ticks: { callback: (value) => 'R$' + (value / 1000) + 'k' } }
+                },
                 plugins: { tooltip: { callbacks: { label: (context) => `${context.dataset.label}: ${formatCurrency(context.raw, 'BRL')}` } } }
             }
         });
@@ -201,15 +204,15 @@
                 datasets: [{
                     label: 'São Paulo',
                     data: [10500, 16000, 25000],
-                    backgroundColor: 'rgba(14, 165, 233, 0.8)', // sky-500
+                    backgroundColor: 'rgba(14, 165, 233, 0.8)',
                 }, {
                     label: 'Rio de Janeiro',
                     data: [9500, 14500, 22000],
-                    backgroundColor: 'rgba(14, 165, 233, 0.5)', // sky-500
+                    backgroundColor: 'rgba(14, 165, 233, 0.5)',
                 }]
             },
             options: {
-                layout: { padding: { left: 60, right: 20, top: 10, bottom: 10 } }, // FIX DEFINITIVO
+                layout: { padding: { left: 80, right: 20, top: 10, bottom: 10 } }, // FIX: Padding agressivo
                 scales: { y: { ticks: { callback: (value) => formatCurrency(value, 'BRL') } }, x: { grid: { display: false } } },
                 plugins: { tooltip: { callbacks: { label: (context) => `${context.dataset.label}: ${formatCurrency(context.raw, 'BRL')}` } } }
             }
@@ -229,7 +232,7 @@
             },
             options: {
                 indexAxis: 'y',
-                layout: { padding: { left: 80, right: 20, top: 10, bottom: 10 } }, // FIX DEFINITIVO
+                layout: { padding: { left: 100, right: 20, top: 10, bottom: 10 } }, // FIX: Padding agressivo
                 scales: { x: { ticks: { callback: (value) => '$' + (value / 1000) + 'k' } }, y: { grid: { display: false } } },
                 plugins: { legend: { display: false }, tooltip: { callbacks: { label: (context) => `Mediana: ${formatCurrency(context.raw)}` } } }
             }
@@ -244,15 +247,15 @@
                 datasets: [{
                     label: 'Salário Nominal',
                     data: [157000, 161000, 215000, 175000],
-                    backgroundColor: 'rgba(168, 85, 247, 0.5)', // purple-500
+                    backgroundColor: 'rgba(168, 85, 247, 0.5)',
                 }, {
                     label: 'Salário Ajustado (Poder de Compra)',
                     data: [230882, 214667, 226315, 175000],
-                    backgroundColor: 'rgba(168, 85, 247, 0.9)', // purple-500
+                    backgroundColor: 'rgba(168, 85, 247, 0.9)',
                 }]
             },
             options: {
-                layout: { padding: { left: 50, right: 20, top: 10, bottom: 10 } }, // FIX DEFINITIVO
+                layout: { padding: { left: 70, right: 20, top: 10, bottom: 10 } }, // FIX: Padding agressivo
                 scales: { y: { ticks: { callback: (value) => '$' + (value / 1000) + 'k' } }, x: { grid: { display: false } } },
                 plugins: { tooltip: { callbacks: { label: (context) => `${context.dataset.label}: ${formatCurrency(context.raw)}` } } }
             }
